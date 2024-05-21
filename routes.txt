@@ -1,0 +1,56 @@
+## TEST AVEC POSTMAN ##
+
+
+# Ajout d'un livre:
+    Méthode: POST
+    URL: http://localhost:5000/api/addBook
+    Corps de la requête (JSON):
+        {
+            "title": "Titre du Livre",
+            "author": "Auteur du Livre",
+            "image": "URL de l'image",
+            "status": "to_read",
+            "pages": 300,
+            "category": "Catégorie du Livre",
+            "isFavorite": false,
+            "currentPage": 0
+        }
+
+
+# Récupérer tous les livres:
+    Méthode: GET
+    URL: http://localhost:5000/api/books
+
+
+# Récupérer un livre spécifique:
+    Méthode: GET
+    URL: http://localhost:5000/api/book/{id}
+    Remplacez {id} par l'ID du livre.
+
+
+# Mettre à jour le statut d'un livre:
+    Méthode: PUT
+    URL: http://localhost:5000/api/book/{id}
+    Corps de la requête (JSON):
+        {
+            "status": "reading"
+        }
+
+
+# Mettre à jour la page actuelle d'un livre:
+    Méthode: PUT
+    URL: http://localhost:5000/api/book/status/{id}
+    Corps de la requête (JSON):
+    {
+        "currentPage": 50
+    }
+
+
+# Ajouter un livre aux favoris:
+    Méthode: POST
+    URL: http://localhost:5000/api/book/{id}/favorite
+
+
+# Supprimer un livre des favoris:
+    Méthode: DELETE
+    URL: http://localhost:5000/api/book/{id}/favorite
