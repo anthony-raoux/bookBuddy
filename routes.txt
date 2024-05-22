@@ -1,5 +1,7 @@
 ## TEST AVEC POSTMAN ##
 
+Démarage du serveur: node backend/server.js
+
 
 # Ajout d'un livre:
     Méthode: POST
