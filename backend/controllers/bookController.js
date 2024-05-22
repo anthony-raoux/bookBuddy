@@ -2,10 +2,10 @@ const Book = require('../models/book');
 
 exports.addBook = async (req, res) => {
   try {
-    const { title, author, image, status, pages, category, userId } = req.body;
-    const book = new Book({ title, author, image, status, pages, category, userId });
+    const { title, author, imageUrl, status, totalPages, category, userId } = req.body; // Mettre à jour les noms de propriété selon les champs envoyés par le frontend
+    const book = new Book({ title, author, imageUrl, status, totalPages, category, userId }); // Mettre à jour les noms de propriété ici également
     await book.save();
-    res.status(201).json({ message: 'Book added successfully', book });
+    res.status(201).json({ message: 'Livre ajouté avec succès', book });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

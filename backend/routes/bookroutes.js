@@ -3,8 +3,9 @@ const router = express.Router();
 const Book = require('../models/book');
 
 // Add a book
-router.post('/addBook', async (req, res) => {
-  const newBook = new Book(req.body);
+router.post('/', async (req, res) => {
+  const { title, author, imageUrl, status, totalPages, category, userId } = req.body;
+  const newBook = new Book({ title, author, imageUrl, status, totalPages, category, userId });
   try {
     const savedBook = await newBook.save();
     res.status(201).json(savedBook);
@@ -14,7 +15,7 @@ router.post('/addBook', async (req, res) => {
 });
 
 // Get all books
-router.get('/books', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const books = await Book.find();
     res.json(books);
@@ -24,7 +25,7 @@ router.get('/books', async (req, res) => {
 });
 
 // Get a specific book by ID
-router.get('/book/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
     if (book == null) {
@@ -37,7 +38,7 @@ router.get('/book/:id', async (req, res) => {
 });
 
 // Get filtered books
-router.get('/book/filter/:filter', async (req, res) => {
+router.get('/filter/:filter', async (req, res) => {
   try {
     const filter = req.params.filter;
     const books = await Book.find({ title: new RegExp(filter, 'i') });
@@ -48,7 +49,7 @@ router.get('/book/filter/:filter', async (req, res) => {
 });
 
 // Update book status
-router.put('/book/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedBook);
@@ -58,7 +59,7 @@ router.put('/book/:id', async (req, res) => {
 });
 
 // Update current page
-router.put('/book/status/:id', async (req, res) => {
+router.put('/status/:id', async (req, res) => {
   try {
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, { currentPage: req.body.currentPage }, { new: true });
     res.json(updatedBook);
@@ -68,7 +69,7 @@ router.put('/book/status/:id', async (req, res) => {
 });
 
 // Add book to favorites
-router.post('/book/favorite/:id', async (req, res) => {
+router.post('/favorite/:id', async (req, res) => {
   try {
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, { isFavorite: true }, { new: true });
     res.json(updatedBook);
@@ -78,7 +79,7 @@ router.post('/book/favorite/:id', async (req, res) => {
 });
 
 // Remove book from favorites
-router.delete('/book/favorite/:id', async (req, res) => {
+router.delete('/favorite/:id', async (req, res) => {
   try {
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, { isFavorite: false }, { new: true });
     res.json(updatedBook);
