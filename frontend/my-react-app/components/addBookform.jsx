@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AddBookForm = () => {
   const [title, setTitle] = useState('');
@@ -41,30 +42,41 @@ const AddBookForm = () => {
   };
 
   return (
-    <div>
-      <h2>Ajouter un livre</h2>
+    <div className="container mt-5">
+      <h2 className="mb-4">Ajouter un livre</h2>
       <form onSubmit={handleSubmit}>
-        <label>Titre:</label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        <label>Auteur:</label>
-        <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required />
-        <label>Image (URL):</label>
-        <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
-        <label>État:</label>
-        <select value={status} onChange={(e) => setStatus(e.target.value)} required>
-          <option value="à lire">À lire</option>
-          <option value="en cours de lecture">En cours de lecture</option>
-          <option value="fini">Fini</option>
-        </select>
-        <label>Nombre de pages:</label>
-        <input type="number" value={pages} onChange={(e) => setPages(e.target.value)} required />
-        <label>Catégorie:</label>
-        <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} required />
-        <button type="submit">Ajouter le livre</button>
+        <div className="mb-3">
+          <label className="form-label">Titre:</label>
+          <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Auteur:</label>
+          <input type="text" className="form-control" value={author} onChange={(e) => setAuthor(e.target.value)} required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Image (URL):</label>
+          <input type="text" className="form-control" value={image} onChange={(e) => setImage(e.target.value)} required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">État:</label>
+          <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)} required>
+            <option value="à lire">À lire</option>
+            <option value="en cours de lecture">En cours de lecture</option>
+            <option value="fini">Fini</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Nombre de pages:</label>
+          <input type="number" className="form-control" value={pages} onChange={(e) => setPages(e.target.value)} required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Catégorie:</label>
+          <input type="text" className="form-control" value={category} onChange={(e) => setCategory(e.target.value)} required />
+        </div>
+        <button type="submit" className="btn btn-primary">Ajouter le livre</button>
       </form>
     </div>
   );
 };
 
 export default AddBookForm;
-
