@@ -4,17 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const AddBookForm = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [image, setImage] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const [status, setStatus] = useState('à lire');
-  const [pages, setPages] = useState('');
+  const [totalPages, setTotalPages] = useState('');
   const [category, setCategory] = useState('');
+  const [userId, setUserId] = useState('664c6eee5f0924f596f9b466'); // Exemple d'userId fixe
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const bookData = { title, author, image, status, pages, category };
+    const bookData = { title, author, imageUrl, status, totalPages, category, userId };
 
     try {
-      const response = await fetch('http://localhost:5000/api/books/addBook', {
+      const response = await fetch('http://localhost:5000/api/books', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,9 +30,9 @@ const AddBookForm = () => {
       // Réinitialiser les champs après l'ajout
       setTitle('');
       setAuthor('');
-      setImage('');
+      setImageUrl('');
       setStatus('à lire');
-      setPages('');
+      setTotalPages('');
       setCategory('');
 
       alert('Le livre a été ajouté avec succès !');
@@ -55,7 +56,7 @@ const AddBookForm = () => {
         </div>
         <div className="mb-3">
           <label className="form-label">Image (URL):</label>
-          <input type="text" className="form-control" value={image} onChange={(e) => setImage(e.target.value)} required />
+          <input type="text" className="form-control" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} required />
         </div>
         <div className="mb-3">
           <label className="form-label">État:</label>
@@ -67,7 +68,7 @@ const AddBookForm = () => {
         </div>
         <div className="mb-3">
           <label className="form-label">Nombre de pages:</label>
-          <input type="number" className="form-control" value={pages} onChange={(e) => setPages(e.target.value)} required />
+          <input type="number" className="form-control" value={totalPages} onChange={(e) => setTotalPages(e.target.value)} required />
         </div>
         <div className="mb-3">
           <label className="form-label">Catégorie:</label>
