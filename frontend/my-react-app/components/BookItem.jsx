@@ -1,8 +1,8 @@
 import React from 'react';
 
-const BookItem = ({ book }) => {
+const BookItem = ({ book, onBookClick }) => {
   return (
-    <div>
+    <div onClick={() => onBookClick(book)} style={{ cursor: 'pointer' }}>
       <h2>{book.title}</h2>
       <p>Auteur: {book.author}</p>
       <p>Catégorie: {book.category}</p>
