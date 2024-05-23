@@ -2,11 +2,13 @@ const Book = require('../models/book');
 
 exports.addBook = async (req, res) => {
   try {
-    const { title, author, imageUrl, status, totalPages, category, userId } = req.body; // Mettre à jour les noms de propriété selon les champs envoyés par le frontend
-    const book = new Book({ title, author, imageUrl, status, totalPages, category, userId }); // Mettre à jour les noms de propriété ici également
-    await book.save();
-    res.status(201).json({ message: 'Livre ajouté avec succès', book });
+    const { title, author, imageUrl, status, totalPages, category, userId } = req.body;
+    console.log('Received data:', req.body); // Ajoutez ceci pour vérifier les données reçues
+    const book = new Book({ title, author, imageUrl, status, totalPages, category, userId });
+    const savedBook = await book.save();
+    res.status(201).json({ message: 'Livre ajouté avec succès', book: savedBook });
   } catch (err) {
+    console.error('Error saving book:', err); // Ajoutez ceci pour vérifier les erreurs
     res.status(400).json({ message: err.message });
   }
 };

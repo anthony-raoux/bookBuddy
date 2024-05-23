@@ -5,11 +5,13 @@ const Book = require('../models/book');
 // Add a book
 router.post('/', async (req, res) => {
   const { title, author, imageUrl, status, totalPages, category, userId } = req.body;
+  console.log('Received data:', req.body); // Vérifiez les données reçues
   const newBook = new Book({ title, author, imageUrl, status, totalPages, category, userId });
   try {
     const savedBook = await newBook.save();
     res.status(201).json(savedBook);
   } catch (err) {
+    console.error('Error saving book:', err); // Vérifiez les erreurs
     res.status(400).json({ message: err.message });
   }
 });
