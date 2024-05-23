@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// src/components/AddBookForm.jsx
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../src/App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AddBookForm = () => {
@@ -8,7 +10,8 @@ const AddBookForm = () => {
   const [status, setStatus] = useState('à lire');
   const [totalPages, setTotalPages] = useState('');
   const [category, setCategory] = useState('');
-  const [userId, setUserId] = useState('664c6eee5f0924f596f9b466'); // Exemple d'userId fixe
+
+  const userId = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
