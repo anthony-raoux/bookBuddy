@@ -9,11 +9,19 @@ const AddBookForm = () => {
   const [status, setStatus] = useState('à lire');
   const [totalPages, setTotalPages] = useState('');
   const [category, setCategory] = useState('');
+  const [error, setError] = useState('');
 
   const userId = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Vérification si l'utilisateur est connecté
+    if (!userId) {
+      setError("Vous devez être connecté pour ajouter un livre.");
+      return;
+    }
+
     const bookData = { title, author, imageUrl, status, totalPages, category, userId };
 
     try {
@@ -48,6 +56,7 @@ const AddBookForm = () => {
     <div className="container mt-3 d-flex justify-content-center">
       <div className="col-md-6">
         <h2 className="mb-3">Ajouter un livre</h2>
+        {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Titre:</label>

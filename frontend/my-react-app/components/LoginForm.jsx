@@ -1,10 +1,17 @@
-// src/components/LoginForm.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LoginForm = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    // Vérifier si l'utilisateur est déjà connecté lors du chargement de la page
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      onLogin(userId);
+    }
+  }, [onLogin]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,6 +31,7 @@ const LoginForm = ({ onLogin }) => {
       }
 
       const data = await response.json();
+      localStorage.setItem('userId', data.userId); // Stocker l'ID de l'utilisateur dans le localStorage
       onLogin(data.userId); // Passe l'ID de l'utilisateur connecté
       alert('Connexion réussie !');
     } catch (error) {
