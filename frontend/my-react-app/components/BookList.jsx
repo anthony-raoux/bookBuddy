@@ -27,9 +27,9 @@ const BookList = () => {
   const filteredBooks = books.filter((book) => {
     const matchesSearchTerm = book.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesAuthorFilter = !authorFilter || book.author.toLowerCase() === authorFilter.toLowerCase();
-    const matchesCategoryFilter = !categoryFilter || book.category.toLowerCase() === categoryFilter.toLowerCase();
+    const matchesCategoryFilter = !categoryFilter || (book.category ?? '').toLowerCase().includes(categoryFilter.toLowerCase());
     return matchesSearchTerm && matchesAuthorFilter && matchesCategoryFilter;
-  });
+  });  
 
   return (
     <div>

@@ -1,18 +1,16 @@
-// BookItem.jsx
 import React from 'react';
 
-const BookItem = ({ book }) => (
-  <div className="book-item">
-    <img src={book.image} alt={book.title} />
+const BookItem = ({ book }) => {
+  return (
     <div>
-      <h3>{book.title}</h3>
+      <h2>{book.title}</h2>
       <p>Auteur: {book.author}</p>
-      <p>État: {book.status}</p>
-      <p>Pages: {book.pages}</p>
       <p>Catégorie: {book.category}</p>
+      <p>Nombre de pages: {book.totalPages}</p>
+      <img src={book.imageUrl} alt={book.title} style={{ maxWidth: '200px', maxHeight: '200px' }} />
+      <p>État: {book.status}</p>
     </div>
-  </div>
-);
+  );
+};
 
 export default BookItem;
-
