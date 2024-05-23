@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BookItem from './BookItem';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -32,30 +34,41 @@ const BookList = () => {
   });  
 
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          placeholder="Recherche..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Filtrer par auteur..."
-          value={authorFilter}
-          onChange={(e) => setAuthorFilter(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Filtrer par catégorie..."
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-        />
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-4">
+          <input
+            type="text"
+            className="form-control mb-3"
+            placeholder="Recherche..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="col-md-4">
+          <input
+            type="text"
+            className="form-control mb-3"
+            placeholder="Filtrer par auteur..."
+            value={authorFilter}
+            onChange={(e) => setAuthorFilter(e.target.value)}
+          />
+        </div>
+        <div className="col-md-4">
+          <input
+            type="text"
+            className="form-control mb-3"
+            placeholder="Filtrer par catégorie..."
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          />
+        </div>
       </div>
-      <div>
+      <div className="row">
         {filteredBooks.map((book, index) => (
-          <BookItem key={index} book={book} />
+          <div className="col-md-4" key={index}>
+            <BookItem book={book} />
+          </div>
         ))}
       </div>
     </div>

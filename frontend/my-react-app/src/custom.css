@@ -5,10 +5,6 @@ body {
     box-sizing: border-box;
   }
   
-  .navbar {
-    width: 100%;
-  }
-  
   .container {
     margin-top: 4rem; /* Ajuste la marge en fonction de la hauteur de la navbar */
   }

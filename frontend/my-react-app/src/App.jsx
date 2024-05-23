@@ -5,7 +5,7 @@ import About from '../components/about';
 import NotFound from '../components/notFound';
 import AddBookForm from '../components/addBookform';
 import BookList from '../components/BookList';
-import RegisterForm from '../components/registerform';
+import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css'; // Importer le fichier CSS personnalisé
