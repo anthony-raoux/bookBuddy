@@ -10,27 +10,34 @@ const Profile = () => {
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
-
+    
+    // Récupérer le mot de passe actuel depuis l'état
+    const currentPassword = password; // Ajoutez cette ligne
+    
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${userId}/password`, {
+      const response = await fetch('http://localhost:5000/api/users/updatePassword', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ password, newPassword }),
+        body: JSON.stringify({
+          userId,
+          currentPassword, // Utilisez le mot de passe actuel
+          newPassword,
+        }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Erreur lors de la mise à jour du mot de passe');
       }
-
+  
       setMessage('Mot de passe mis à jour avec succès');
     } catch (error) {
       console.error(error);
       setMessage('Une erreur s\'est produite lors de la mise à jour du mot de passe');
     }
-  };
-
+  };  
+  
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Profile</h2>
