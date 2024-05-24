@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import BookItem from './BookItem';
 import BookModal from './BookModal';
+import '../src/custom.css'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -118,22 +120,22 @@ const BookList = () => {
         </div>
       </div>
       <div className="row">
-          
-      {filteredBooks.map((book, index) => (
-        <div className="col-md-4" key={index}>
-          <BookItem book={book} onBookClick={handleBookClick} />
-          {book.isFavorite ? (
-            <button onClick={() => removeFavorite(book._id)}>
-              Retirer des favoris
-            </button>
-          ) : (
-            <button onClick={() => toggleFavorite(book._id)}>
-              Ajouter aux favoris
-            </button>
-          )}
-        </div>
-      ))}
-
+        {filteredBooks.map((book, index) => (
+          <div className="col-md-4 book-container d-flex justify-content-center " key={index}>
+            <div className="book-item text-center">
+              <BookItem book={book} onBookClick={handleBookClick} />
+              {book.isFavorite ? (
+                <button className="book-button" onClick={() => removeFavorite(book._id)}>
+                  Retirer des favoris
+                </button>
+              ) : (
+                <button className="book-button" onClick={() => toggleFavorite(book._id)}>
+                  Ajouter aux favoris
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
       {selectedBook && (
         <BookModal 

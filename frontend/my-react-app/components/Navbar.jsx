@@ -15,20 +15,20 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/">Accueil</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">About</Link>
+              <Link className="nav-link" to="/about">A propos</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/add">Add Book</Link>
+              <Link className="nav-link" to="/add">Ajouter un livre</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/books">Book List</Link>
+              <Link className="nav-link" to="/books">Liste des livres</Link>
             </li>
             {/* Ajouter le lien vers la page favoris */}
             <li className="nav-item">
-              <Link className="nav-link" to="/favorites">Favorites</Link>
+              <Link className="nav-link" to="/favorites">Favoris</Link>
             </li>
             {userId ? (
               <>
@@ -36,16 +36,16 @@ const Navbar = () => {
                   <Link className="nav-link" to="/profile">Profile</Link>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-link btn" onClick={handleLogout}>Logout</button>
+                  <button className="nav-link btn" onClick={handleLogout}>déconnexion</button>
                 </li>
               </>
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/register">Register</Link>
+                  <Link className="nav-link" to="/register">s'inscrire</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">Login</Link>
+                  <Link className="nav-link" to="/login">se connecter</Link>
                 </li>
               </>
             )}

@@ -56,7 +56,7 @@ const AddBookForm = () => {
   
 
   return (
-    <div className="container mt-3 d-flex justify-content-center">
+    <div className="container mt-3 d-flex justify-content-center jumbotron">
       <div className="col-md-6">
         <h2 className="mb-3">Ajouter un livre</h2>
         {error && <div className="alert alert-danger">{error}</div>}
