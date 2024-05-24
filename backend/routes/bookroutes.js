@@ -50,13 +50,26 @@ router.get('/filter/:filter', async (req, res) => {
   }
 });
 
-// Update book status
+// Route pour mettre à jour un livre
 router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { status, lastPageRead } = req.body; // Assurez-vous que votre body parser est configuré
+
   try {
-    const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    // Trouvez le livre par ID et mettez à jour les champs nécessaires
+    const updatedBook = await Book.findByIdAndUpdate(
+      id,
+      { status, lastPageRead },
+      { new: true, runValidators: true } // Options pour renvoyer le livre mis à jour et exécuter les validateurs
+    );
+
+    if (!updatedBook) {
+      return res.status(404).send('Livre non trouvé');
+    }
+
     res.json(updatedBook);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+  } catch (error) {
+    res.status(400).send('Erreur lors de la mise à jour du livre');
   }
 });
 

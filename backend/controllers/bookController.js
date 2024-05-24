@@ -60,11 +60,16 @@ exports.updateBook = async (req, res) => {
 
 exports.updateReadingStatus = async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id);
+    const { id } = req.params;
+    const { status, lastPageRead } = req.body; // Ajoutez lastPageRead à partir du corps de la requête
+    const book = await Book.findById(id);
     if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
-    book.status = req.body.status;
+    book.status = status;
+    if (status === 'en cours de lecture') {
+      book.lastPageRead = lastPageRead; // Mettez à jour lastPageRead si le statut est 'en cours de lecture'
+    }
     await book.save();
     res.json({ message: 'Reading status updated successfully' });
   } catch (err) {
