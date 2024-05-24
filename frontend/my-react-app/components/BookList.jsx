@@ -95,7 +95,8 @@ const BookList = () => {
           book={selectedBook} 
           isOpen={isModalOpen} 
           onClose={handleCloseModal} 
-          onSave={updateBookStatus} // Passez la fonction de mise à jour en tant que prop
+          onSave={updateBookStatus} 
+          id={selectedBook._id} // Passez l'ID du livre ici
         />
       )}
     </div>

@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, ProgressBar, Form } from 'react-bootstrap';
 
-const BookModal = ({ book, isOpen, onClose, onSave }) => {
+const BookModal = ({ book, isOpen, onClose, onSave, id }) => {
   const [status, setStatus] = useState(book.status);
+  const [lastPageRead, setLastPageRead] = useState(book.lastPageRead || 0);
 
   useEffect(() => {
     setStatus(book.status); // Initialize status with the book status when the modal is opened
+    setLastPageRead(book.lastPageRead || 0); // Initialize last page read
   }, [book]);
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/books/${book._id}`, { // Use 'book._id'
+      const response = await fetch(`http://localhost:5000/api/books/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...book, status }),
+        body: JSON.stringify({ ...book, status, lastPageRead }),
       });
 
       if (!response.ok) {
@@ -29,6 +31,12 @@ const BookModal = ({ book, isOpen, onClose, onSave }) => {
       console.error(error);
     }
   };
+
+  const handlePageChange = (e) => {
+    setLastPageRead(Number(e.target.value));
+  };
+
+  const progress = Math.min((lastPageRead / book.totalPages) * 100, 100);
 
   return (
     <Modal show={isOpen} onHide={onClose}>
@@ -49,6 +57,21 @@ const BookModal = ({ book, isOpen, onClose, onSave }) => {
             <option value="fini">Fini</option>
           </select>
         </div>
+        {status === 'en cours de lecture' && (
+          <>
+            <Form.Group controlId="formLastPageRead">
+              <Form.Label>Dernière page lue:</Form.Label>
+              <Form.Control
+                type="number"
+                min="0"
+                max={book.totalPages}
+                value={lastPageRead}
+                onChange={handlePageChange}
+              />
+            </Form.Group>
+            <ProgressBar now={progress} label={`${progress.toFixed(2)}%`} className="mt-3" />
+          </>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
