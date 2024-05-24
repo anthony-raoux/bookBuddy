@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const BookModal = ({ book, isOpen, onClose, onSave, id }) => {
+const BookModal = ({ book, isOpen, onClose, onSave }) => {
   const [status, setStatus] = useState(book.status);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ const BookModal = ({ book, isOpen, onClose, onSave, id }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/books/${id}`, { // Use 'id' instead of 'book.id'
+      const response = await fetch(`http://localhost:5000/api/books/${book._id}`, { // Use 'book._id'
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

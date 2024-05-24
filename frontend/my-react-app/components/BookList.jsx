@@ -48,7 +48,7 @@ const BookList = () => {
 
   const updateBookStatus = (updatedBook) => {
     setBooks((prevBooks) =>
-      prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
+      prevBooks.map((book) => (book._id === updatedBook._id ? updatedBook : book))
     );
   };
 
