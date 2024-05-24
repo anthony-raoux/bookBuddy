@@ -12,18 +12,20 @@ const AddBookForm = () => {
   const [error, setError] = useState('');
 
   const userId = useContext(UserContext);
-
+  // Assurez-vous que userId est une chaîne et non pas un objet
+  const userIdString = userId.userId;
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Vérification si l'utilisateur est connecté
-    if (!userId) {
+    if (!userIdString) {
       setError("Vous devez être connecté pour ajouter un livre.");
       return;
     }
-
-    const bookData = { title, author, imageUrl, status, totalPages, category, userId };
-
+  
+    const bookData = { title, author, imageUrl, status, totalPages, category, userId: userIdString };
+  
     try {
       const response = await fetch('http://localhost:5000/api/books', {
         method: 'POST',
@@ -32,11 +34,11 @@ const AddBookForm = () => {
         },
         body: JSON.stringify(bookData),
       });
-
+  
       if (!response.ok) {
         throw new Error('Erreur lors de l\'ajout du livre');
       }
-
+  
       // Réinitialiser les champs après l'ajout
       setTitle('');
       setAuthor('');
@@ -44,13 +46,14 @@ const AddBookForm = () => {
       setStatus('à lire');
       setTotalPages('');
       setCategory('');
-
+  
       alert('Le livre a été ajouté avec succès !');
     } catch (error) {
       console.error(error);
       alert('Une erreur s\'est produite lors de l\'ajout du livre.');
     }
   };
+  
 
   return (
     <div className="container mt-3 d-flex justify-content-center">
