@@ -35,8 +35,40 @@ const BookList = () => {
     return matchesSearchTerm && matchesAuthorFilter && matchesCategoryFilter;
   });
 
+  const toggleFavorite = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/books/favorite/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Failed to toggle favorite status');
+      }
+      const updatedBook = await response.json();
+      updateBookStatus(updatedBook); // Mettre à jour l'état du livre dans le state après mise à jour dans la base de données
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeFavorite = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/books/favorite/${id}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to remove from favorites');
+      }
+      const updatedBook = await response.json();
+      updateBookStatus(updatedBook); // Mettre à jour l'état du livre dans le state après mise à jour dans la base de données
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   const handleBookClick = (book) => {
-    console.log("Book details:", book); // Ajoutez ce console.log pour vérifier les détails du livre, y compris l'ID
     setSelectedBook(book);
     setIsModalOpen(true);
   };
@@ -47,8 +79,10 @@ const BookList = () => {
   };
 
   const updateBookStatus = (updatedBook) => {
-    setBooks((prevBooks) =>
-      prevBooks.map((book) => (book._id === updatedBook._id ? updatedBook : book))
+    setBooks(prevBooks =>
+      prevBooks.map(book =>
+        book._id === updatedBook._id ? updatedBook : book
+      )
     );
   };
 
@@ -84,11 +118,22 @@ const BookList = () => {
         </div>
       </div>
       <div className="row">
-        {filteredBooks.map((book, index) => (
-          <div className="col-md-4" key={index}>
-            <BookItem book={book} onBookClick={handleBookClick} />
-          </div>
-        ))}
+          
+      {filteredBooks.map((book, index) => (
+        <div className="col-md-4" key={index}>
+          <BookItem book={book} onBookClick={handleBookClick} />
+          {book.isFavorite ? (
+            <button onClick={() => removeFavorite(book._id)}>
+              Retirer des favoris
+            </button>
+          ) : (
+            <button onClick={() => toggleFavorite(book._id)}>
+              Ajouter aux favoris
+            </button>
+          )}
+        </div>
+      ))}
+
       </div>
       {selectedBook && (
         <BookModal 
@@ -96,7 +141,7 @@ const BookList = () => {
           isOpen={isModalOpen} 
           onClose={handleCloseModal} 
           onSave={updateBookStatus} 
-          id={selectedBook._id} // Passez l'ID du livre ici
+          id={selectedBook._id}
         />
       )}
     </div>

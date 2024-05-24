@@ -104,3 +104,12 @@ exports.removeFromFavorites = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.getFavoriteBooks = async (req, res) => {
+  try {
+    const favoriteBooks = await Book.find({ isFavorite: true });
+    res.json(favoriteBooks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

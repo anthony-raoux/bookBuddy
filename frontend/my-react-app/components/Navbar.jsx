@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../src/App';
@@ -26,6 +25,10 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/books">Book List</Link>
+            </li>
+            {/* Ajouter le lien vers la page favoris */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/favorites">Favorites</Link>
             </li>
             {userId ? (
               <>

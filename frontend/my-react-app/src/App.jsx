@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect, createContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from '../components/home';
@@ -10,6 +9,7 @@ import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import Profile from '../components/profile';
 import Navbar from '../components/Navbar';
+import FavoritesPage from '../components/FavoritesPage'; // Importez la page FavoritesPage ici
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css'; // Importer le fichier CSS personnalisé
 
@@ -50,6 +50,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/add" element={<AddBookForm addBook={addBook} />} />
             <Route path="/books" element={<BookList books={books} />} />
+            <Route path="/favorites" element={<FavoritesPage favoriteBooks={books.filter(book => book.isFavorite)} />} /> {/* Ajoutez cette ligne pour la page favoris */}
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
             <Route path="/profile" element={<Profile />} />

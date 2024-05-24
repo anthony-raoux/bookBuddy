@@ -26,6 +26,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Route pour récupérer les livres favoris
+router.get('/favorites/all', async (req, res) => {
+  try {
+    // Récupérez tous les livres où isFavorite est true
+    const favoriteBooks = await Book.find({ isFavorite: true });
+
+    // Renvoyez les livres favoris en réponse
+    res.json(favoriteBooks);
+  } catch (err) {
+    // En cas d'erreur, renvoyez une réponse d'erreur avec le message approprié
+    res.status(500).json({ message: 'Erreur lors de la récupération des livres favoris' });
+  }
+});
+
 // Get a specific book by ID
 router.get('/:id', async (req, res) => {
   try {
@@ -38,6 +52,9 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// Autres routes...
+
 
 // Get filtered books
 router.get('/filter/:filter', async (req, res) => {
