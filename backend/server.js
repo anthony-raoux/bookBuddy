@@ -23,10 +23,14 @@ mongoose.connect('mongodb://localhost:27017/BookBuddy', {
 const bookRoutes = require('./routes/bookroutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const badgeRoutes = require('./routes/badges');       // Ajout de la route des badges
+const gamificationRoutes = require('./routes/gamification'); // Ajout de la route de gamification
 
 app.use('/api/books', bookRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/badges', badgeRoutes);           // Utilisation de la route des badges
+app.use('/api/gamification', gamificationRoutes); // Utilisation de la route de gamification
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

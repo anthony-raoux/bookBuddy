@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import BookItem from './BookItem';
 import { Container, Row, Col, Card, Alert } from 'react-bootstrap';
+import '../src/custom.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const FavoritesPage = () => {
   const [favoriteBooks, setFavoriteBooks] = useState([]);
@@ -24,8 +26,8 @@ const FavoritesPage = () => {
   }, []);
 
   return (
-    <Container>
-      <h1 className="mt-5 mb-4">Favorite Books</h1>
+    <Container className="mt-5">
+      <h1 className="mb-4">Favorite Books</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       <Row>
         {favoriteBooks.length > 0 ? (
@@ -44,5 +46,5 @@ const FavoritesPage = () => {
   );
 };
 
-
 export default FavoritesPage;
+

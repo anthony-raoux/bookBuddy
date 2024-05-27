@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../components/home';
 import About from '../components/about';
 import NotFound from '../components/notFound';
@@ -9,7 +9,9 @@ import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import Profile from '../components/profile';
 import Navbar from '../components/Navbar';
-import FavoritesPage from '../components/FavoritesPage'; // Importez la page FavoritesPage ici
+import FavoritesPage from '../components/FavoritesPage';
+import Badges from '../components/Badges';
+import AssignBadge from '../components/Assignbadge';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css'; // Importer le fichier CSS personnalisé
 
@@ -54,6 +56,8 @@ const App = () => {
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/badges" element={<Badges userId={userId} />} /> {/* Route pour afficher les badges */}
+            <Route path="/assign-badge" element={<AssignBadge userId={userId} />} /> {/* Route pour attribuer des badges */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

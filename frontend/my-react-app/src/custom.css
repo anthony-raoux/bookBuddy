@@ -83,97 +83,116 @@ body {
   }
 }
 
+/* src/custom.css */
 
-/* custom.css */
+/* Reset CSS */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+/* Jumbotron */
+.jumbotron {
+    background-color: #f8f9fa;
+    padding: 2rem 1rem;
+    border-radius: 0.3rem;
+    text-align: center;
+}
+
+.jumbotron h1 {
+    color: #343a40;
+    animation: fadeInDown 1s ease-out;
+}
+
+.jumbotron .lead {
+    color: #6c757d;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.jumbotron .btn-primary {
+    background-color: #8000ff;
+    border-color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.jumbotron .btn-primary:hover {
+    background-color: #ff76f1;
+    transform: scale(1.05);
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Container */
+.container {
+    margin-top: 4rem; /* Ajuste la marge en fonction de la hauteur de la navbar */
+}
+
+/* Navbar */
 .navbar-brand:hover {
-  color: #5e4fe0; /* Couleur du texte au survol */
+    color: #5e4fe0; /* Couleur du texte au survol */
 }
 
 .navbar-nav .nav-link:hover {
-  color: #ff88fd; /* Couleur du texte au survol */
+    color: #ff88fd; /* Couleur du texte au survol */
 }
 
-/* Effet de transition pour les liens */
 .navbar-nav .nav-item {
-  transition: all 0.3s ease;
+    transition: all 0.3s ease; /* Effet de transition pour les liens */
 }
 
 .navbar-nav .nav-item:hover {
-  transform: translateY(-3px); /* Translation vers le haut au survol */
+    transform: translateY(-3px); /* Translation vers le haut au survol */
 }
 
-/* custom.css */
-
-/* Style du conteneur du formulaire */
-.container {
-  margin-top: 50px; /* Ajoute un espace au-dessus du formulaire */
-}
-
-/* Style du titre du formulaire */
-h2 {
-  text-align: center; /* Centrer le texte */
-}
-
-/* Style du champ d'entrée */
-.form-control {
-  border: 1px solid #ced4da; /* Bordure grise */
-}
-
-/* Style des labels */
-.form-label {
-  color: #6c757d; /* Couleur grise pour les labels */
-}
-
-/* Style du bouton */
-.btn-primary {
-  background-color: #8000ff; /* Couleur bleue pour le bouton */
-  border: none; /* Supprime la bordure */
-}
-
-/* Style du bouton au survol */
-.btn-primary:hover {
-  background-color: #ff76f1; /* Couleur bleue foncée au survol */
-}
-
-/* custom.css */
-
-/* Style pour les conteneurs de livre */
+/* Book List */
 .book-container {
-  margin-bottom: 20px; /* Ajoute un espace entre chaque livre */
+    margin-bottom: 20px; /* Ajoute un espace entre chaque livre */
 }
-
-/* custom.css */
 
 .book-item {
-  padding: 20px;
-  background-color: #f8f9fa; /* Couleur de fond */
-  border-radius: 5px; /* Coins arrondis */
-  transition: all 0.3s ease; /* Transition fluide */
-  height: 100%; /* Hauteur fixe pour chaque carte */
+    padding: 20px;
+    background-color: #f8f9fa; /* Couleur de fond */
+    border-radius: 5px; /* Coins arrondis */
+    transition: all 0.3s ease; /* Transition fluide */
+    height: 100%; /* Hauteur fixe pour chaque carte */
 }
 
-
-/* Effet de hover sur les livres */
 .book-item:hover {
-  transform: translateY(-5px); /* Translation vers le haut au survol */
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Ombre au survol */
+    transform: translateY(-5px); /* Translation vers le haut au survol */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Ombre au survol */
 }
 
-/* custom.css */
-
-/* Style du bouton Ajouter aux favoris */
+/* Button */
 .book-button {
-  background-color: #782bed; /* Couleur de fond bleue */
-  color: #fff; /* Couleur du texte blanc */
-  border: none; /* Supprime la bordure */
-  padding: 5px 10px; /* Ajoute un espace intérieur */
-  border-radius: 3px; /* Coins arrondis */
-  transition: background-color 0.3s ease; /* Transition fluide */
+    background-color: #782bed; /* Couleur de fond bleue */
+    color: #fff; /* Couleur du texte blanc */
+    border: none; /* Supprime la bordure */
+    padding: 5px 10px; /* Ajoute un espace intérieur */
+    border-radius: 3px; /* Coins arrondis */
+    transition: background-color 0.3s ease; /* Transition fluide */
 }
 
-/* Effet de hover sur le bouton Ajouter aux favoris */
 .book-button:hover {
-  background-color: #e77cff; /* Couleur de fond bleue foncée au survol */
-  cursor: pointer; /* Curseur pointeur au survol */
+    background-color: #e77cff; /* Couleur de fond bleue foncée au survol */
+    cursor: pointer; /* Curseur pointeur au survol */
 }

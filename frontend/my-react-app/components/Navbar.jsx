@@ -1,3 +1,4 @@
+// components/Navbar.jsx
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../src/App';
@@ -35,17 +36,21 @@ const Navbar = () => {
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile">Profile</Link>
                 </li>
+                {/* Ajouter le lien vers la page de profil pour afficher les badges */}
                 <li className="nav-item">
-                  <button className="nav-link btn" onClick={handleLogout}>déconnexion</button>
+                  <Link className="nav-link" to="/profile/badges">Mes Badges</Link>
+                </li>
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={handleLogout}>Déconnexion</button>
                 </li>
               </>
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/register">s'inscrire</Link>
+                  <Link className="nav-link" to="/register">S'inscrire</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">se connecter</Link>
+                  <Link className="nav-link" to="/login">Se connecter</Link>
                 </li>
               </>
             )}
