@@ -1,4 +1,3 @@
-// src/components/RegisterForm.jsx
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -6,6 +5,7 @@ const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -21,20 +21,23 @@ const RegisterForm = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Erreur lors de l\'inscription');
+        const data = await response.json();
+        throw new Error(data.message || 'Erreur lors de l\'inscription');
       }
 
       const data = await response.json();
       alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+      setError('');  // Clear any previous errors
     } catch (error) {
       console.error(error);
-      alert('Une erreur s\'est produite lors de l\'inscription.');
+      setError(error.message);
     }
   };
 
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Inscription</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleRegister}>
         <div className="mb-3">
           <label className="form-label">Nom d'utilisateur:</label>

@@ -26,26 +26,4 @@ router.get('/user/:id', async (req, res) => {
   }
 });
 
-// Update user password
-router.put('/updatePassword', async (req, res) => {
-  const { userId, currentPassword, newPassword } = req.body;
-  try {
-    // Vérifier le mot de passe actuel de l'utilisateur avant de le mettre à jour
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    if (!user.comparePassword(currentPassword)) {
-      return res.status(400).json({ message: 'Mot de passe actuel incorrect' });
-    }
-    // Mettre à jour le mot de passe de l'utilisateur
-    user.password = newPassword;
-    await user.save();
-    res.json({ message: 'Mot de passe mis à jour avec succès' });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
-
 module.exports = router;
