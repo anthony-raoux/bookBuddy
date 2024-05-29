@@ -1,14 +1,21 @@
 const Book = require('../models/book');
+const { assignBibliophileBadge } = require('./userController');
 
 exports.addBook = async (req, res) => {
   try {
     const { title, author, imageUrl, status, totalPages, category, userId } = req.body;
-    console.log('Received data:', req.body); // Ajoutez ceci pour vérifier les données reçues
+    console.log('Received data:', req.body);
+
+    // Créez et enregistrez le nouveau livre
     const book = new Book({ title, author, imageUrl, status, totalPages, category, userId });
     const savedBook = await book.save();
+
+    // Attribuez le badge Bibliophile si applicable
+    await assignBibliophileBadge(userId);
+
     res.status(201).json({ message: 'Livre ajouté avec succès', book: savedBook });
   } catch (err) {
-    console.error('Error saving book:', err); // Ajoutez ceci pour vérifier les erreurs
+    console.error('Error saving book:', err);
     res.status(400).json({ message: err.message });
   }
 };

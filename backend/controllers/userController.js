@@ -1,15 +1,14 @@
-// controllers/userController.js
 const User = require('../models/user');
 const Badge = require('../models/badge');
 
-exports.addUser = async (req, res) => {
+const addUser = async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = new User({ username, password });
     await user.save();
 
     // Attribuer le badge de première connexion
-    await this.assignFirstSignInBadge(user._id);
+    await assignFirstSignInBadge(user._id);
 
     res.status(201).json({ message: 'User added successfully', user });
   } catch (err) {
@@ -17,7 +16,7 @@ exports.addUser = async (req, res) => {
   }
 };
 
-exports.getUserById = async (req, res) => {
+const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate('badges');
     if (!user) {
@@ -29,7 +28,7 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-exports.updatePassword = async (req, res) => {
+const updatePassword = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -43,21 +42,20 @@ exports.updatePassword = async (req, res) => {
   }
 };
 
-// Fonction pour attribuer un badge si l'utilisateur a ajouté 10 livres
-exports.assignBibliophileBadge = async (userId) => {
+// Fonction pour attribuer un badge si l'utilisateur a ajouté 1 livre
+const assignBibliophileBadge = async (userId) => {
   try {
     const user = await User.findById(userId).populate('badges');
     if (!user) {
       throw new Error('Utilisateur non trouvé');
     }
 
-    if (user.books.length >= 10 && !user.badges.some(badge => badge.name === 'Bibliophile')) {
-      const bibliophileBadge = await Badge.findOne({ name: 'Bibliophile' });
-      if (bibliophileBadge) {
-        user.badges.push(bibliophileBadge);
-        await user.save();
-        console.log('Badge Bibliophile attribué');
-      }
+    if (user.books.length >= 1 && !user.badges.some(badge => badge.badgeName === 'Bibliophile')) {
+      const bibliophileBadge = new Badge({ userId, badgeName: 'Bibliophile', description: 'Ajoutez votre 1er livre' });
+      await bibliophileBadge.save();
+      user.badges.push(bibliophileBadge);
+      await user.save();
+      console.log('Badge Bibliophile attribué');
     }
   } catch (error) {
     console.error('Erreur lors de l\'attribution du badge Bibliophile:', error);
@@ -65,7 +63,7 @@ exports.assignBibliophileBadge = async (userId) => {
 };
 
 // Fonction pour attribuer un badge si l'utilisateur s'inscrit pour la première fois
-exports.assignFirstSignInBadge = async (userId) => {
+const assignFirstSignInBadge = async (userId) => {
   try {
     const user = await User.findById(userId).populate('badges');
     if (!user) {
@@ -73,12 +71,11 @@ exports.assignFirstSignInBadge = async (userId) => {
     }
 
     if (user.badges.length === 0) {
-      const firstSignInBadge = await Badge.findOne({ name: 'First Sign In' });
-      if (firstSignInBadge) {
-        user.badges.push(firstSignInBadge);
-        await user.save();
-        console.log('Badge First Sign In attribué');
-      }
+      const firstSignInBadge = new Badge({ userId, badgeName: 'First Sign In', description: 'First sign in' });
+      await firstSignInBadge.save();
+      user.badges.push(firstSignInBadge);
+      await user.save();
+      console.log('Badge First Sign In attribué');
     }
   } catch (error) {
     console.error('Erreur lors de l\'attribution du badge First Sign In:', error);
@@ -86,20 +83,19 @@ exports.assignFirstSignInBadge = async (userId) => {
 };
 
 // Fonction pour attribuer un badge si l'utilisateur ajoute 5 livres en favoris
-exports.assignStarsBadge = async (userId) => {
+const assignStarsBadge = async (userId) => {
   try {
     const user = await User.findById(userId).populate('badges');
     if (!user) {
       throw new Error('Utilisateur non trouvé');
     }
 
-    if (user.favoriteBooks.length >= 5 && !user.badges.some(badge => badge.name === 'Stars')) {
-      const starsBadge = await Badge.findOne({ name: 'Stars' });
-      if (starsBadge) {
-        user.badges.push(starsBadge);
-        await user.save();
-        console.log('Badge Stars attribué');
-      }
+    if (user.favoriteBooks.length >= 5 && !user.badges.some(badge => badge.badgeName === 'Stars')) {
+      const starsBadge = new Badge({ userId, badgeName: 'Stars', description: 'Added 5 favorite books' });
+      await starsBadge.save();
+      user.badges.push(starsBadge);
+      await user.save();
+      console.log('Badge Stars attribué');
     }
   } catch (error) {
     console.error('Erreur lors de l\'attribution du badge Stars:', error);
@@ -107,22 +103,32 @@ exports.assignStarsBadge = async (userId) => {
 };
 
 // Fonction pour attribuer un badge si l'utilisateur visite son profil 10 fois
-exports.assignExplorerBadge = async (userId) => {
+const assignExplorerBadge = async (userId) => {
   try {
     const user = await User.findById(userId).populate('badges');
     if (!user) {
       throw new Error('Utilisateur non trouvé');
     }
 
-    if (user.profileVisits >= 10 && !user.badges.some(badge => badge.name === 'Explorer')) {
-      const explorerBadge = await Badge.findOne({ name: 'Explorer' });
-      if (explorerBadge) {
-        user.badges.push(explorerBadge);
-        await user.save();
-        console.log('Badge Explorer attribué');
-      }
+    if (user.profileVisits >= 10 && !user.badges.some(badge => badge.badgeName === 'Explorer')) {
+      const explorerBadge = new Badge({ userId, badgeName: 'Explorer', description: 'Visited profile 10 times' });
+      await explorerBadge.save();
+      user.badges.push(explorerBadge);
+      await user.save();
+      console.log('Badge Explorer attribué');
     }
   } catch (error) {
     console.error('Erreur lors de l\'attribution du badge Explorer:', error);
   }
+};
+
+// Exporter les fonctions pour les utiliser ailleurs
+module.exports = {
+  addUser,
+  getUserById,
+  updatePassword,
+  assignBibliophileBadge,
+  assignFirstSignInBadge,
+  assignStarsBadge,
+  assignExplorerBadge
 };

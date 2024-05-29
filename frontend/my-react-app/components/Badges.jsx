@@ -1,42 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Badges = ({ userId }) => {
   const [badges, setBadges] = useState([]);
 
   useEffect(() => {
     const fetchBadges = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/badges/${userId}/badges`);
-        const data = await response.json();
-        setBadges(data.badges);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des badges:', error);
+      if (userId) {
+        const response = await axios.get(`http://localhost:5000/api/badges/${userId}`);
+        setBadges(response.data);
       }
     };
-
     fetchBadges();
   }, [userId]);
 
+  if (!userId) {
+    return <p>Please log in to see your badges.</p>;
+  }
+
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Mes Badges</h2>
-      <div className="row">
+    <div>
+      <h1>Your Badges</h1>
+      <ul>
         {badges.map((badge) => (
-          <div key={badge._id} className="col-md-3">
-            <div className="card mb-4">
-              <img src={badge.icon} className="card-img-top" alt={badge.name} />
-              <div className="card-body">
-                <h5 className="card-title">{badge.name}</h5>
-                <p className="card-text">{badge.description}</p>
-              </div>
-            </div>
-          </div>
+          <li key={badge._id}>
+            {badge.badgeName}: {badge.description}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };
 
 export default Badges;
-
-// ajouter modale a la liste des favoris, faire fonctionner les récompense/badges, supprimer un livre et rendre le site plus beau.

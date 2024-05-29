@@ -5,13 +5,12 @@ import About from '../components/about';
 import NotFound from '../components/notFound';
 import AddBookForm from '../components/addBookform';
 import BookList from '../components/BookList';
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components/registerform';
 import LoginForm from '../components/LoginForm';
 import Profile from '../components/profile';
 import Navbar from '../components/Navbar';
 import FavoritesPage from '../components/FavoritesPage';
 import Badges from '../components/Badges';
-import AssignBadge from '../components/Assignbadge';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css'; // Importer le fichier CSS personnalisé
 
@@ -57,7 +56,6 @@ const App = () => {
             <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/badges" element={<Badges userId={userId} />} /> {/* Route pour afficher les badges */}
-            <Route path="/assign-badge" element={<AssignBadge userId={userId} />} /> {/* Route pour attribuer des badges */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
