@@ -1,4 +1,5 @@
 const Book = require('../models/book');
+const User = require('../models/user');
 const { assignBibliophileBadge } = require('./userController');
 
 exports.addBook = async (req, res) => {
@@ -10,8 +11,14 @@ exports.addBook = async (req, res) => {
     const book = new Book({ title, author, imageUrl, status, totalPages, category, userId });
     const savedBook = await book.save();
 
-    // Attribuez le badge Bibliophile si applicable
-    await assignBibliophileBadge(userId);
+    // Ajoutez le livre à l'utilisateur
+    const user = await User.findById(userId);
+    if (user) {
+      user.books.push(savedBook._id);
+      await user.save();
+      // Attribuez le badge Bibliophile si applicable
+      await assignBibliophileBadge(userId);
+    }
 
     res.status(201).json({ message: 'Livre ajouté avec succès', book: savedBook });
   } catch (err) {

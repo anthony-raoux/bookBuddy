@@ -42,10 +42,9 @@ const updatePassword = async (req, res) => {
   }
 };
 
-// Fonction pour attribuer un badge si l'utilisateur a ajouté 1 livre
 const assignBibliophileBadge = async (userId) => {
   try {
-    const user = await User.findById(userId).populate('badges');
+    const user = await User.findById(userId).populate('badges').populate('books');
     if (!user) {
       throw new Error('Utilisateur non trouvé');
     }
@@ -62,7 +61,6 @@ const assignBibliophileBadge = async (userId) => {
   }
 };
 
-// Fonction pour attribuer un badge si l'utilisateur s'inscrit pour la première fois
 const assignFirstSignInBadge = async (userId) => {
   try {
     const user = await User.findById(userId).populate('badges');
@@ -81,6 +79,7 @@ const assignFirstSignInBadge = async (userId) => {
     console.error('Erreur lors de l\'attribution du badge First Sign In:', error);
   }
 };
+
 
 // Fonction pour attribuer un badge si l'utilisateur ajoute 5 livres en favoris
 const assignStarsBadge = async (userId) => {

@@ -33,9 +33,13 @@ const Navbar = () => {
             </li>
             {userId ? (
               <>
-                 <li className="nav-item">
-                <Link className="nav-link" to="/badges">Mes Badges</Link>
-              </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/profile">Profile</Link>
+                </li>
+                {/* Ajouter le lien vers la page de profil pour afficher les badges */}
+                <li className="nav-item">
+                  <Link className="nav-link" to="/badges">Mes Badges</Link>
+                </li>
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={handleLogout}>Déconnexion</button>
                 </li>

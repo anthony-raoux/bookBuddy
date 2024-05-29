@@ -1,33 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const Reward = require('../models/badge');
+const Badge = require('../models/badge');
+const User = require('../models/user');
 
-// GET all badges for a user
 router.get('/:userId', async (req, res) => {
-    try {
-        const rewards = await Reward.find({ userId: req.params.userId, type: 'badge' });
-        res.json(rewards);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+  try {
+    const userId = req.params.userId;
+    const badges = await Badge.find();
+    const user = await User.findById(userId).populate('badges');
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
-});
 
-// POST a new badge
-router.post('/', async (req, res) => {
-    const reward = new Reward({
-        userId: req.body.userId,
-        type: 'badge',
-        badgeName: req.body.badgeName,
-        description: req.body.description
-    });
+    const userBadges = user.badges.map(badge => badge.badgeName);
 
-    try {
-        const newReward = await reward.save();
-        res.status(201).json(newReward);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+    res.json({ badges, userBadges });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 module.exports = router;
-
