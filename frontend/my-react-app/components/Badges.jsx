@@ -7,12 +7,17 @@ const Badges = ({ userId }) => {
 
   useEffect(() => {
     const fetchBadges = async () => {
-      if (userId) {
-        const response = await axios.get(`http://localhost:5000/api/badges/${userId}`);
-        setAllBadges(response.data.badges);
-        setUserBadges(response.data.userBadges);
+      try {
+        if (userId) {
+          const response = await axios.get(`http://localhost:5000/api/badges/${userId}`);
+          setAllBadges(response.data.badges);
+          setUserBadges(response.data.userBadges);
+        }
+      } catch (error) {
+        console.error('Error fetching badges:', error);
       }
     };
+
     fetchBadges();
   }, [userId]);
 
@@ -25,13 +30,13 @@ const Badges = ({ userId }) => {
       <h1>Your Badges</h1>
       <ul>
         {allBadges.map((badge) => (
-          <li key={badge._id} style={{ color: userBadges.includes(badge.name) ? 'black' : 'gray' }}>
+          <li key={badge._id} style={{ color: userBadges.includes(badge.badgeName) ? 'black' : 'gray' }}>
             <img 
               src={badge.icon} 
-              alt={badge.name} 
-              style={{ filter: userBadges.includes(badge.name) ? 'none' : 'grayscale(100%)', width: '50px', height: '50px' }}
+              alt={badge.badgeName} 
+              style={{ filter: userBadges.includes(badge.badgeName) ? 'none' : 'grayscale(100%)', width: '50px', height: '50px' }}
             />
-            <span>{badge.name}: {badge.description}</span>
+            <span>{badge.badgeName}: {badge.description}</span>
           </li>
         ))}
       </ul>

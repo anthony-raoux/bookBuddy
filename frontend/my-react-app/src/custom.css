@@ -196,3 +196,14 @@ body {
     background-color: #e77cff; /* Couleur de fond bleue foncée au survol */
     cursor: pointer; /* Curseur pointeur au survol */
 }
+
+.custom-progress-bar {
+    background-color:  #5e4fe0 !important; /* Couleur personnalisée pour la barre */
+  }
+  
+  .custom-progress-bar .progress-bar {
+    background-color: #ff88fd !important; /* Couleur personnalisée pour la partie de la barre */
+    color: rgb(255, 255, 255); /* Couleur du texte du pourcentage */
+  }
+  
+  

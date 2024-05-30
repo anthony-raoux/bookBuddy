@@ -69,7 +69,7 @@ const BookModal = ({ book, isOpen, onClose, onSave, id }) => {
                 onChange={handlePageChange}
               />
             </Form.Group>
-            <ProgressBar now={progress} label={`${progress.toFixed(2)}%`} className="mt-3" />
+            <ProgressBar now={progress} label={`${progress.toFixed(2)}%`} className="mt-3 custom-progress-bar" />
           </>
         )}
       </Modal.Body>
