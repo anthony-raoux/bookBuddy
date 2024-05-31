@@ -1,0 +1,18 @@
+<mxfile host="65bd71144e">
+    <diagram id="Vr-P5yf6DIfk6tMrT1Dd" name="Page-1">
+        <mxGraphModel dx="482" dy="570" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <object label="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Livre&lt;br&gt;&lt;/font&gt;&lt;/b&gt;id&lt;br&gt;titre&lt;br&gt;auteur&lt;br&gt;image&lt;br&gt;état&lt;br&gt;nombre de page&lt;br&gt;catégorie" bookComponent="" placeholders="1" id="2">
+                    <mxCell style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                        <mxGeometry x="170" y="90" width="160" height="160" as="geometry"/>
+                    </mxCell>
+                </object>
+                <mxCell id="3" value="&lt;font style=&quot;&quot;&gt;&lt;span style=&quot;font-weight: bold; font-size: 18px;&quot;&gt;Utilisateur&lt;/span&gt;&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;id&lt;br&gt;&lt;/font&gt;Nom d'utilisateur&lt;br&gt;Mail&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Mot de passe&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="90" width="160" height="160" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
