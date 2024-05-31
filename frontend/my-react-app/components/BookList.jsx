@@ -4,12 +4,9 @@ import BookModal from './BookModal';
 import '../src/custom.css'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 const BookList = () => {
   const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [authorFilter, setAuthorFilter] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
   const [selectedBook, setSelectedBook] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,10 +28,11 @@ const BookList = () => {
   }, []);
 
   const filteredBooks = books.filter((book) => {
-    const matchesSearchTerm = book.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesAuthorFilter = !authorFilter || book.author.toLowerCase() === authorFilter.toLowerCase();
-    const matchesCategoryFilter = !categoryFilter || (book.category ?? '').toLowerCase().includes(categoryFilter.toLowerCase());
-    return matchesSearchTerm && matchesAuthorFilter && matchesCategoryFilter;
+    const searchLower = searchTerm.toLowerCase();
+    const matchesTitle = book.title.toLowerCase().includes(searchLower);
+    const matchesAuthor = book.author.toLowerCase().includes(searchLower);
+    const matchesCategory = (book.category ?? '').toLowerCase().includes(searchLower);
+    return matchesTitle || matchesAuthor || matchesCategory;
   });
 
   const toggleFavorite = async (id) => {
@@ -91,37 +89,19 @@ const BookList = () => {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-12">
           <input
             type="text"
             className="form-control mb-3"
-            placeholder="Recherche..."
+            placeholder="Recherche par titre, auteur ou catégorie..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="col-md-4">
-          <input
-            type="text"
-            className="form-control mb-3"
-            placeholder="Filtrer par auteur..."
-            value={authorFilter}
-            onChange={(e) => setAuthorFilter(e.target.value)}
-          />
-        </div>
-        <div className="col-md-4">
-          <input
-            type="text"
-            className="form-control mb-3"
-            placeholder="Filtrer par catégorie..."
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
           />
         </div>
       </div>
       <div className="row">
         {filteredBooks.map((book, index) => (
-          <div className="col-md-4 book-container d-flex justify-content-center " key={index}>
+          <div className="col-md-4 book-container d-flex justify-content-center" key={index}>
             <div className="book-item text-center">
               <BookItem book={book} onBookClick={handleBookClick} />
               {book.isFavorite ? (

@@ -6,6 +6,7 @@ const bookController = require('../controllers/bookController');
 const userController = require('../controllers/userController');
 const rewardController = require('../controllers/rewardController');
 const authController = require('../controllers/authController');
+const badgeController = require('../controllers/badgecontroller'); // Ajouté
 
 // Routes pour les livres
 router.post('/addBook', bookController.addBook);
@@ -25,5 +26,9 @@ router.post('/addUser', userController.addUser);
 router.get('/user/:id', userController.getUserById);
 router.put('/user/:id', userController.updatePassword);
 router.post('/login', authController.login);
+
+// Routes pour les badges
+router.get('/badges/:userId', badgeController.getBadges); // Ajouté
+router.get('/badges', badgeController.getBadges); // Corrected route
 
 module.exports = router;

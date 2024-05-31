@@ -1,13 +1,10 @@
-// models/badge.js
 const mongoose = require('mongoose');
 
-const rewardSchema = new mongoose.Schema({
-    userId: String,
-    type: { type: String, enum: ['badge', 'other'] },
-    badgeName: String,
+const badgeSchema = new mongoose.Schema({
+    name: String,
     description: String,
-    date: { type: Date, default: Date.now },
-    earned: { type: Boolean, default: false }  // Nouveau champ
+    icon: String,
+    dateCreated: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Reward', rewardSchema);
+module.exports = mongoose.model('Badge', badgeSchema);
